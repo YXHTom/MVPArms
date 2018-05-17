@@ -34,9 +34,9 @@ import android.view.View;
  * ================================================
  */
 public interface FragmentDelegate {
-    String FRAGMENT_DELEGATE = "fragment_delegate";
+    String FRAGMENT_DELEGATE = "FRAGMENT_DELEGATE";
 
-    void onAttach(Context context);
+    void onAttach(@NonNull Context context);
 
     void onCreate(@Nullable Bundle savedInstanceState);
 

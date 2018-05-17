@@ -1,8 +1,8 @@
 <h1 align="center">MVPArms</h1>
 
 <p align="center">
-   <a href="https://bintray.com/jessyancoding/maven/MVPArms/2.3.5/link">
-    <img src="https://img.shields.io/badge/bintray-v2.3.5-brightgreen.svg" alt="Latest Stable Version" />
+   <a href="https://bintray.com/jessyancoding/maven/MVPArms/2.4.1/link">
+    <img src="https://img.shields.io/badge/Jcenter-v2.4.1-brightgreen.svg?style=flat-square" alt="Latest Stable Version" />
   </a>
   <a href="https://travis-ci.org/JessYanCoding/MVPArms">
     <img src="https://travis-ci.org/JessYanCoding/MVPArms.svg?branch=master" alt="Build Status" />
@@ -13,8 +13,11 @@
   <a href="http://www.apache.org/licenses/LICENSE-2.0">
     <img src="http://img.shields.io/badge/License-Apache%202.0-blue.svg?style=flat-square" alt="License" />
   </a>
+  <a href="https://www.jianshu.com/u/1d0c0bc634db">
+    <img src="https://img.shields.io/badge/Author-JessYan-orange.svg?style=flat-square" alt="Author" />
+  </a>
   <a href="https://shang.qq.com/wpa/qunwpa?idkey=1a5dc5e9b2e40a780522f46877ba243eeb64405d42398643d544d3eec6624917">
-    <img src="https://img.shields.io/badge/QQ群-301733278-ff69b4.svg" alt="QQ Group" />
+    <img src="https://img.shields.io/badge/QQ群-301733278-orange.svg?style=flat-square" alt="QQ Group" />
   </a>
 </p>
 
@@ -30,11 +33,9 @@
 ## Wiki
 [详细使用方法及扩展功能,请参照 Wiki (**开发前必看!!!**)](https://github.com/JessYanCoding/MVPArms/wiki)
 
-<!--##The project used [In Progress]
-[Inspired by eyepetizer（灵感来源于开眼视频,开发中...）](https://github.com/JessYanCoding/WideEyes) -->
-
-
 ## Notice
+
+* [**MVPArms 官方组件化方案 ArmsComponent**](https://github.com/JessYanCoding/ArmsComponent/wiki)
 
 * [MVPArms 学习项目](https://github.com/JessYanCoding/MVPArms/blob/master/CONTRIBUTING_APP.md)
 
@@ -69,7 +70,7 @@
 13. [`Butterknife`JakeWharton大神出品的view注入框架.](https://github.com/JakeWharton/butterknife)
 14. [`Androideventbus`一个轻量级使用注解的Eventbus.](https://github.com/hehonghui/AndroidEventBus)
 15. [`Timber`JakeWharton大神出品Log框架容器，内部代码极少，但是思想非常不错.](https://github.com/JakeWharton/timber)
-16. [`Glide`此库为本框架默认封装图片加载库，可参照着例子更改为其他的库，Api和`Picasso`差不多,缓存机制比`Picasso`复杂,速度快，适合处理大型图片流，支持gfit，`Fresco`太大了！，在5.0以下优势很大，5.0以上系统默认使用的内存管理和`Fresco`类似.](https://github.com/bumptech/glide)
+16. [`Glide`此库为本框架默认封装图片加载库，可参照着例子更改为其他的库，Api和`Picasso`差不多，缓存机制比`Picasso`复杂，速度快，适合处理大型图片流，支持 gif 图片，`Fresco`太大了！在5.0以下优势很大，5.0以上系统默认使用的内存管理和`Fresco`类似.](https://github.com/bumptech/glide)
 17. [`LeakCanary`Square出品的专门用来检测`Android`和`Java`的内存泄漏,通过通知栏提示内存泄漏信息.](https://github.com/square/leakcanary)
 
 ## Who is using MVPArms?

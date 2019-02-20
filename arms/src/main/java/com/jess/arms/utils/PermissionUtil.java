@@ -21,7 +21,6 @@ import com.tbruyelle.rxpermissions2.Permission;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import io.reactivex.annotations.NonNull;
@@ -42,12 +41,12 @@ import timber.log.Timber;
 public class PermissionUtil {
     public static final String TAG = "Permission";
 
-
     private PermissionUtil() {
         throw new IllegalStateException("you can't instantiate me!");
     }
 
     public interface RequestPermission {
+
         /**
          * 权限请求成功
          */
@@ -68,7 +67,6 @@ public class PermissionUtil {
         void onRequestPermissionFailureWithAskNeverAgain(List<String> permissions);
     }
 
-
     public static void requestPermission(final RequestPermission requestPermission, RxPermissions rxPermissions, RxErrorHandler errorHandler, String... permissions) {
         if (permissions == null || permissions.length == 0) return;
 
@@ -88,27 +86,36 @@ public class PermissionUtil {
                     .subscribe(new ErrorHandleSubscriber<List<Permission>>(errorHandler) {
                         @Override
                         public void onNext(@NonNull List<Permission> permissions) {
+                            List<String> failurePermissions = new ArrayList<>();
+                            List<String> askNeverAgainPermissions = new ArrayList<>();
                             for (Permission p : permissions) {
                                 if (!p.granted) {
                                     if (p.shouldShowRequestPermissionRationale) {
-                                        Timber.tag(TAG).d("Request permissions failure");
-                                        requestPermission.onRequestPermissionFailure(Arrays.asList(p.name));
-                                        return;
+                                        failurePermissions.add(p.name);
                                     } else {
-                                        Timber.tag(TAG).d("Request permissions failure with ask never again");
-                                        requestPermission.onRequestPermissionFailureWithAskNeverAgain(Arrays.asList(p.name));
-                                        return;
+                                        askNeverAgainPermissions.add(p.name);
                                     }
                                 }
                             }
-                            Timber.tag(TAG).d("Request permissions success");
-                            requestPermission.onRequestPermissionSuccess();
+                            if (failurePermissions.size() > 0) {
+                                Timber.tag(TAG).d("Request permissions failure");
+                                requestPermission.onRequestPermissionFailure(failurePermissions);
+                            }
+
+                            if (askNeverAgainPermissions.size() > 0){
+                                Timber.tag(TAG).d("Request permissions failure with ask never again");
+                                requestPermission.onRequestPermissionFailureWithAskNeverAgain(askNeverAgainPermissions);
+                            }
+
+                            if (failurePermissions.size() == 0 && askNeverAgainPermissions.size() == 0){
+                                Timber.tag(TAG).d("Request permissions success");
+                                requestPermission.onRequestPermissionSuccess();
+                            }
                         }
                     });
         }
 
     }
-
 
     /**
      * 请求摄像头权限
@@ -117,14 +124,12 @@ public class PermissionUtil {
         requestPermission(requestPermission, rxPermissions, errorHandler, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA);
     }
 
-
     /**
      * 请求外部存储的权限
      */
     public static void externalStorage(RequestPermission requestPermission, RxPermissions rxPermissions, RxErrorHandler errorHandler) {
         requestPermission(requestPermission, rxPermissions, errorHandler, Manifest.permission.WRITE_EXTERNAL_STORAGE);
     }
-
 
     /**
      * 请求发送短信权限
@@ -133,7 +138,6 @@ public class PermissionUtil {
         requestPermission(requestPermission, rxPermissions, errorHandler, Manifest.permission.SEND_SMS);
     }
 
-
     /**
      * 请求打电话权限
      */
@@ -141,13 +145,11 @@ public class PermissionUtil {
         requestPermission(requestPermission, rxPermissions, errorHandler, Manifest.permission.CALL_PHONE);
     }
 
-
     /**
      * 请求获取手机状态的权限
      */
     public static void readPhonestate(RequestPermission requestPermission, RxPermissions rxPermissions, RxErrorHandler errorHandler) {
         requestPermission(requestPermission, rxPermissions, errorHandler, Manifest.permission.READ_PHONE_STATE);
     }
-
 }
 

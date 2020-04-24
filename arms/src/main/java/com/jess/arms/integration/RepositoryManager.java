@@ -17,8 +17,9 @@ package com.jess.arms.integration;
 
 import android.app.Application;
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.jess.arms.integration.cache.Cache;
 import com.jess.arms.integration.cache.CacheType;
@@ -57,9 +58,11 @@ public class RepositoryManager implements IRepositoryManager {
     Application mApplication;
     @Inject
     Cache.Factory mCacheFactory;
+    @Inject
+    @Nullable
+    ObtainServiceDelegate mObtainServiceDelegate;
     private Cache<String, Object> mRetrofitServiceCache;
     private Cache<String, Object> mCacheServiceCache;
-    private ObtainServiceDelegate mDelegate;
 
     @Inject
     public RepositoryManager() {
@@ -82,8 +85,9 @@ public class RepositoryManager implements IRepositoryManager {
                 "Cannot return null from a Cache.Factory#build(int) method");
         T retrofitService = (T) mRetrofitServiceCache.get(serviceClass.getCanonicalName());
         if (retrofitService == null) {
-            if (mDelegate != null) {
-                retrofitService = mDelegate.createRetrofitService(mRetrofit.get(), serviceClass);
+            if (mObtainServiceDelegate != null) {
+                retrofitService = mObtainServiceDelegate.createRetrofitService(
+                        mRetrofit.get(), serviceClass);
             }
             if (retrofitService == null) {
                 retrofitService = (T) Proxy.newProxyInstance(
@@ -132,10 +136,5 @@ public class RepositoryManager implements IRepositoryManager {
     @Override
     public Context getContext() {
         return mApplication;
-    }
-
-    @Override
-    public void setObtainServiceDelegate(@Nullable ObtainServiceDelegate delegate) {
-        mDelegate = delegate;
     }
 }
